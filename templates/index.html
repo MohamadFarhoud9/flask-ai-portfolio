@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }} | Portfolio</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --border: #334155;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { padding: 80px 0 60px; text-align: center; border-bottom: 1px solid var(--border); }
+        header h1 { font-size: 2.8rem; margin-bottom: 10px; color: var(--accent); }
+        header .subtitle { font-size: 1.25rem; color: #818cf8; font-weight: 600; margin-bottom: 20px; }
+        header .bio { max-width: 650px; margin: 0 auto 30px; color: var(--text-secondary); font-size: 1.05rem; }
+        .social-links a { display: inline-block; margin: 0 10px; padding: 10px 22px; background-color: var(--bg-secondary); color: var(--text-primary); text-decoration: none; border-radius: 8px; border: 1px solid var(--border); }
+        section { padding: 60px 0; }
+        h2.section-title { font-size: 2rem; margin-bottom: 35px; text-align: center; color: var(--accent); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .skill-category { background-color: var(--bg-secondary); padding: 25px; border-radius: 12px; border: 1px solid var(--border); }
+        .skill-category h3 { color: var(--accent); margin-bottom: 15px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag { background-color: var(--bg-primary); padding: 6px 14px; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border); }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 25px; }
+        .project-card { background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; }
+        .project-card h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--text-primary); }
+        .project-tech { display: inline-block; font-size: 0.8rem; color: var(--accent); background: rgba(56, 189, 248, 0.1); padding: 4px 10px; border-radius: 6px; margin-bottom: 15px; }
+        .project-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; }
+        .project-link { display: inline-block; text-align: center; padding: 10px 16px; background-color: var(--accent); color: #0f172a; text-decoration: none; font-weight: 700; border-radius: 8px; }
+        footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--border); color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>{{ user.name }}</h1>
+            <div class="subtitle">{{ user.title }}</div>
+            <p class="bio">{{ user.bio }}</p>
+            <div class="social-links">
+                <a href="{{ user.github }}" target="_blank">GitHub</a>
+                <a href="mailto:{{ user.email }}">Email Me</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                {% for category, items in skills.items() %}
+                <div class="skill-category">
+                    <h3>{{ category }}</h3>
+                    <div class="skill-tags">
+                        {% for skill in items %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                {% for project in projects %}
+                <div class="project-card">
+                    <div>
+                        <span class="project-tech">{{ project.tech }}</span>
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description }}</p>
+                    </div>
+                    <a href="{{ project.url }}" target="_blank" class="project-link">View on GitHub &rarr;</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 {{ user.name }}. Built with Python & Flask.</p>
+        </div>
+    </footer>
+</body>
+</html>
